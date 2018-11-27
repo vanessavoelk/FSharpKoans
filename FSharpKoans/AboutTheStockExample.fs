@@ -59,7 +59,6 @@ module ``about the stock example`` =
     // Feel free to add extra [<Koan>] members here to write
     // tests for yourself along the way. You can also try 
     // using the F# Interactive window to check your progress.
-    type Entry = { Entry : StockEntry }
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
