@@ -1,6 +1,6 @@
 ﻿namespace FSharpKoans
 open FSharpKoans.Core
-
+open System.Globalization
 //---------------------------------------------------------------
 // Apply Your Knowledge!
 //
@@ -25,6 +25,8 @@ open FSharpKoans.Core
 // let splitCommas (x:string) =
 //     x.Split([|','|])
 //---------------------------------------------------------------
+   
+
 [<Koan(Sort = 15)>]
 module ``about the stock example`` =
     
@@ -57,9 +59,24 @@ module ``about the stock example`` =
     // Feel free to add extra [<Koan>] members here to write
     // tests for yourself along the way. You can also try 
     // using the F# Interactive window to check your progress.
+    type Entry = { Entry : StockEntry }
 
     [<Koan>]
     let YouGotTheAnswerCorrect() =
-        let result =  __
-        
+        let splitCommas (x:string)  =
+            x.Split([|','|])
+
+        let parseDouble(value: string)=
+            System.Double.Parse (value, CultureInfo.InvariantCulture)
+
+        let getOpenCloseDifference(openValue: string, close: string)=
+            abs(parseDouble(openValue)-parseDouble(close))
+
+        let resultEntry = stockData
+                            |> List.tail
+                            |> List.map splitCommas
+                            |> List.maxBy (fun stockEntry -> getOpenCloseDifference(stockEntry.[1], stockEntry.[4]))
+                 
+        let result = resultEntry.[0]
+
         AssertEquality "2012-03-13" result
